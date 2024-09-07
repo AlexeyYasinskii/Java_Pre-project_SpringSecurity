@@ -37,8 +37,8 @@ public class UserController {
 
     @PostMapping("/")
     public String registration(@ModelAttribute("user") User user) {
-        userService.saveOrUpdateUser(user);
-        return "redirect:/user";
+        userService.saveUser(user);
+        return "user";
     }
 
 }

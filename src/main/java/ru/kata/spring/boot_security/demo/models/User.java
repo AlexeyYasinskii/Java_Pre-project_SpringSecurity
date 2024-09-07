@@ -17,18 +17,17 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String username;
 
-    private String surname;
 
     private int age;
 
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
@@ -36,18 +35,17 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String surname, int age, String password) {
+    public User(String username, int age, String password) {
         this.username = username;
-        this.surname = surname;
         this.age = age;
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,13 +53,6 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public int getAge() {
         return age;
@@ -88,7 +79,6 @@ public class User implements UserDetails {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", surname='" + surname + '\'' +
                 ", age=" + age +
                 '}';
     }

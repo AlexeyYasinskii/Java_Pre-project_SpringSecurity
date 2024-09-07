@@ -14,14 +14,12 @@
     <table border="1">
         <tr>
             <th>Name</th>
-            <th>Surname</th>
             <th>Age</th>
             <th>Operations</th>
         </tr>
         <tr th:each="user : ${allUsers}">
 
             <td th:text="${user.username}"></td>
-            <td th:text="${user.surname}"></td>
             <td th:text="${user.age}"></td>
             <td>
                 <form th:action="@{/admin/editUser(id=${user.id})}">

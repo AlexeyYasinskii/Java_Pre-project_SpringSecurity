@@ -9,11 +9,15 @@ public interface UserService {
 
     public List<User> showAllUsers();
 
-    public void saveOrUpdateUser(User user);
+    public void updateUser(User user);
+
+    public void saveUser(User user);
 
     public User showUser(int id);
 
     public void deleteUser(int id);
 
     public User findUserByUsername(String username);
+
+
 }

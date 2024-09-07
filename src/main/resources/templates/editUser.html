@@ -15,15 +15,24 @@
     <label for="name">Name</label>
     <input type="text" th:field="*{username}" id="name" th:value="${user.username}" required/>
     <br><br>
-    <label for="surname">Surname</label>
-    <input type="text" th:field="*{surname}" id="surname" th:value="${user.surname}" required/>
-    <br><br>
     <label for="age">Age</label>
     <input type="text" th:field="*{age}" id="age" th:value="${user.age}" required pattern="\d+"/>
     <br><br>
-    <label for="password"></label>
-    <input type="password" th:field="*{password}" id="password" hidden="hidden"/>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password" required/>
     <br><br>
+    <label>Roles:</label>
+    <div th:each="role : ${user.roles}">
+        <label>
+            <input type="checkbox"
+                   th:id="'role_' + ${role.id}"
+                   th:name="roles"
+                   th:value="${role.id}"
+                   th:checked="${user.roles.contains(role)}"/>
+        </label>
+        <span th:text="${role.name}"></span>
+    </div>
+
     <input type="submit" value="Update">
 </form>
 
