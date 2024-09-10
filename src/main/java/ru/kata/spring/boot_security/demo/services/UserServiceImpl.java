@@ -41,18 +41,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        userRepository.save(user);
+        Optional<User> updatingUser = userRepository.findById(user.getId());
+        if (updatingUser.isPresent()) {
+            User updatedUser = updatingUser.get();
+            updatedUser.setUsername(user.getUsername());
+            updatedUser.setAge(user.getAge());
+            if (!user.getPassword().isEmpty()) {
+                updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            userRepository.save(updatedUser);
+        }
     }
 
     public void saveUser(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        Role role = roleRepository.findOneByName("ROLE_USER");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
         userRepository.save(user);
     }
 
