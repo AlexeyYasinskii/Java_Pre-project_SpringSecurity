@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             User updatedUser = updatingUser.get();
             updatedUser.setUsername(user.getUsername());
             updatedUser.setAge(user.getAge());
+            updatedUser.setRoles(user.getRoles());
             if (!user.getPassword().isEmpty()) {
                 updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
             }
