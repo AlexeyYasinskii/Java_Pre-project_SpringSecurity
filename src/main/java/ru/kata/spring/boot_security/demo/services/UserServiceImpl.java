@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<User> showAllUsers() {
+
         return userRepository.findAll();
     }
 
@@ -46,7 +47,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             User updatedUser = updatingUser.get();
             updatedUser.setUsername(user.getUsername());
             updatedUser.setAge(user.getAge());
-            updatedUser.setRoles(user.getRoles());
+            Set<Role> roles = new HashSet<>();
+            for (Role role : user.getRoles()) {
+                Role existingRole = roleRepository.findOneByName(role.getName());
+                roles.add(existingRole);
+            }
+            updatedUser.setRoles(roles);
             if (!user.getPassword().isEmpty()) {
                 updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
             }
@@ -57,13 +63,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void saveUser(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        Set<Role> roles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            Role existingRole = roleRepository.findOneByName(role.getName());
+            roles.add(existingRole);
+        }
+        user.setRoles(roles);
+
         userRepository.save(user);
     }
 
     @Override
     public User showUser(int id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+        return userRepository.findByIdWithRoles(id).orElse(null);
     }
 
     @Override
@@ -79,7 +91,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
         if (user == null) {
-            System.err.println("User not found: " + username);
             throw new UsernameNotFoundException("User not found");
         }
         return new org.springframework.security.core.userdetails.User(
