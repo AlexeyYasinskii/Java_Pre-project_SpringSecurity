@@ -14,8 +14,7 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired

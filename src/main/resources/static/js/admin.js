@@ -1,5 +1,3 @@
-const URL = 'http://localhost:8080/admin';
-
 document.addEventListener('DOMContentLoaded', function () {
     loadUsers();
 });
@@ -7,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function loadUsers() {
     try {
-        const response = await fetch(URL);
+        const response = await fetch('/api/admin');
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
@@ -35,7 +33,7 @@ async function loadUsers() {
 
 async function loadRoles() {
     try {
-        const rolesResponse = await fetch(`${URL}/roles`);
+        const rolesResponse = await fetch(`/api/admin/roles`);
         if (!rolesResponse.ok) {
             throw new Error('Error fetching roles');
         }
@@ -48,7 +46,7 @@ async function loadRoles() {
 
 async function editUser(userId) {
     try {
-        const response = await fetch(`${URL}/${userId}`);
+        const response = await fetch(`/api/admin/${userId}`);
         if (!response.ok) {
             throw new Error('Error fetching user data');
         }
@@ -95,7 +93,7 @@ document.getElementById('editUserForm').addEventListener('submit', async (event)
     };
 
     try {
-        const response = await fetch(`${URL}/${userId}`, {
+        const response = await fetch(`/api/admin/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -126,7 +124,7 @@ document.getElementById('editUserForm').addEventListener('submit', async (event)
 
 async function showDeleteModal(userId) {
     try {
-        const response = await fetch(`${URL}/${userId}`);
+        const response = await fetch(`/api/admin/${userId}`);
         if (!response.ok) {
             throw new Error('Error fetching user data');
         }
@@ -159,7 +157,7 @@ async function showDeleteModal(userId) {
 
 async function deleteUser(userId) {
     try {
-        const response = await fetch(`${URL}/${userId}`, {
+        const response = await fetch(`/api/admin/${userId}`, {
             method: 'DELETE'
         });
         if (response.ok) {
@@ -186,7 +184,7 @@ async function addUser() {
 
     try {
 
-        const response = await fetch(`${URL}`, {
+        const response = await fetch(`/api/admin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -232,5 +230,10 @@ document.getElementById('addUserForm').addEventListener('submit', async (event) 
     await addUser();
 });
 document.addEventListener('DOMContentLoaded', initializeRoles);
+
+(async () => {
+    await fetchUserData("/api/user");
+})();
+
 
 
