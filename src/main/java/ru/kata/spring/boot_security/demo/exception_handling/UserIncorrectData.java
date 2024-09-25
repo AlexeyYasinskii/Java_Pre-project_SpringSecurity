@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.exception_handling;
 
 public class UserIncorrectData {
+
     private String message;
 
     public UserIncorrectData() {

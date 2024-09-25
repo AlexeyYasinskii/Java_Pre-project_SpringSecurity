@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface UserService {
 
-    public List<User> showAllUsers();
+    List<User> showAllUsers();
 
-    public void updateUser(User user);
+    void updateUser(User user);
 
-    public void saveUser(User user);
+    void saveUser(User user);
 
-    public User showUser(int id);
+    User showUser(int id);
 
-    public void deleteUser(int id);
+    void deleteUser(int id);
 
-    public User findUserByUsername(String username);
+    User findUserByUsername(String username);
 
 
 }

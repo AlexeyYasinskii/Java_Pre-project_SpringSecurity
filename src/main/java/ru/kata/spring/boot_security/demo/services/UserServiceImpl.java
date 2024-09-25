@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-
     @Override
     public List<User> showAllUsers() {
 

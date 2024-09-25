@@ -203,6 +203,7 @@ async function addUser() {
         const newUser = JSON.parse(responseText);
         console.log('User added successfully:', newUser);
         await loadUsers();
+        document.getElementById('addUserForm').reset();
         const allUsersTab = new bootstrap.Tab(document.getElementById('nav-home-tab'));
         allUsersTab.show();
     } catch (error) {

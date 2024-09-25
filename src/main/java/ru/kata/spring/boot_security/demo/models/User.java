@@ -21,11 +21,9 @@ public class User implements UserDetails {
 
     private String username;
 
-
     private int age;
 
     private String password;
-
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -53,7 +51,6 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-
     public int getAge() {
         return age;
     }
@@ -72,15 +69,6 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", age=" + age +
-                '}';
     }
 
     @Override
@@ -118,5 +106,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
